@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-bg-1: #0f0f0f;
+  --color-bg-2: #141414;
+  --color-line: #1f1f1f;
+  --color-line-2: #2a2a2a;
+  --color-fg: #e6e6e6;
+  --color-fg-dim: #8a8a8a;
+  --color-fg-mute: #5a5a5a;
+  --color-accent: #10b981;
+  --color-accent-dim: #047857;
+  --color-warn: #f59e0b;
+  --color-blue: #38bdf8;
+  --color-pink: #ec4899;
+
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #000;
+}
+
+/* Dotted grid background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(16, 185, 129, 0.012) 50%, transparent 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s steps(2) infinite;
+}
+
+.dot-pulse {
+  animation: pulse 2s infinite;
+}
