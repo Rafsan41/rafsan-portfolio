@@ -22,7 +22,7 @@ const PROJECTS = [
     file: "project_02.tsx",
     name: "MediStore",
     symbol: "▸",
-    desc: "Full-stack medicine store with role-based dashboards, inventory tracking, and secure checkout flow.",
+    desc: "Multi-role medicine e-commerce platform with separate Admin, Seller, and Customer dashboards. Features inventory management, order tracking, prescription uploads, and secure checkout — deployed live on Vercel.",
     tech: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Tailwind", "RBAC"],
     live: "https://medicinestores.vercel.app",
     repo: "https://github.com/Rafsan41/L2B6A4",
@@ -105,7 +105,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
         style={{
           background: "var(--color-bg-2)",
           position: "relative",
-          minHeight: "340px",
+          minHeight: "410px",
           overflow: "hidden",
           borderRight: "1px solid var(--color-line)",
         }}
@@ -126,7 +126,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
           }}
         >
           <div style={{ display: "flex", gap: "5px" }}>
-            {["#3f3f3f", "#3f3f3f", "#3f3f3f"].map((c, i) => (
+            {["#ef4444", "#f59e0b", "#10b981"].map((c, i) => (
               <span
                 key={i}
                 style={{
@@ -155,7 +155,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
           </div>
         </div>
         {/* Canvas */}
-        <div style={{ height: "290px", position: "relative", overflow: "hidden" }}>
+        <div style={{ height: "360px", position: "relative", overflow: "hidden" }}>
           {project.preview}
         </div>
       </div>
@@ -333,52 +333,40 @@ function ActionBtn({
 
 /* ── Project preview mockups ─────────────────────── */
 
-function GreenRootsPreview() {
+function SitePreview({ url, fallback }: { url: string; fallback: string }) {
   return (
-    <div style={{ height: "100%", overflow: "hidden", position: "relative" }}>
-      <img
-        src="/greenRoots_1.jpg"
-        alt="GreenRoots hero"
+    <div style={{ height: "100%", overflow: "hidden", position: "relative", background: "#fff" }}>
+      <iframe
+        src={url}
+        title={url}
+        scrolling="no"
         style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "top",
-          display: "block",
+          width: "1280px",
+          height: "800px",
+          border: "none",
+          transform: "scale(0.453)",
+          transformOrigin: "top left",
+          pointerEvents: "none",
         }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.5) 100%)",
+        onError={(e) => {
+          const parent = (e.currentTarget as HTMLIFrameElement).parentElement;
+          if (parent) {
+            (e.currentTarget as HTMLIFrameElement).style.display = "none";
+            const img = document.createElement("img");
+            img.src = fallback;
+            img.style.cssText = "width:100%;height:100%;object-fit:cover;object-position:top;display:block;";
+            parent.appendChild(img);
+          }
         }}
       />
     </div>
   );
 }
 
+function GreenRootsPreview() {
+  return <SitePreview url="https://greenroots-mauve.vercel.app" fallback="/greenRoots_1.jpg" />;
+}
+
 function MediStorePreview() {
-  return (
-    <div style={{ height: "100%", overflow: "hidden", position: "relative" }}>
-      <img
-        src="/medistiore.jpg"
-        alt="MediStore hero"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "top",
-          display: "block",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.5) 100%)",
-        }}
-      />
-    </div>
-  );
+  return <SitePreview url="https://medicinestores.vercel.app" fallback="/medistiore.jpg" />;
 }

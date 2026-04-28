@@ -58,6 +58,45 @@ export function About() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
+          {/* Profile photo */}
+          <div style={{ display: "flex", alignItems: "center", gap: "20px", marginBottom: "20px" }}>
+            <div style={{ position: "relative", width: "72px", height: "72px", flexShrink: 0 }}>
+              {/* Blurred glow behind */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "-14px",
+                  borderRadius: "50%",
+                  background: "rgba(16,185,129,0.6)",
+                  filter: "blur(24px)",
+                  zIndex: 0,
+                }}
+              />
+              <div
+                style={{
+                  position: "relative",
+                  width: "72px",
+                  height: "72px",
+                  borderRadius: "50%",
+                  border: "2px solid var(--color-accent)",
+                  overflow: "hidden",
+                  zIndex: 1,
+                }}
+              >
+                <img
+                  src="/rafsan-profile.jfif"
+                  alt="Rafsan Jani Dipta"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+              </div>
+            </div>
+            <div style={{ fontFamily: "var(--font-mono)" }}>
+              <div style={{ fontSize: "15px", fontWeight: 600, color: "var(--color-fg)" }}>Rafsan Jani Dipta</div>
+              <div style={{ fontSize: "12px", color: "var(--color-accent)", marginTop: "2px" }}>Full Stack Developer</div>
+              <div style={{ fontSize: "11px", color: "var(--color-fg-mute)", marginTop: "2px" }}>Bangladesh 🇧🇩</div>
+            </div>
+          </div>
+
           {/* File tree */}
           <div
             style={{

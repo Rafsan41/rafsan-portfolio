@@ -61,10 +61,49 @@ export function Hero() {
     >
       {/* Left */}
       <div style={{ minWidth: 0 }}>
+        {/* Avatar */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{ marginBottom: "24px", display: "inline-block" }}
+        >
+          <div style={{ position: "relative", width: "80px", height: "80px" }}>
+            {/* Blurred glow behind */}
+            <div
+              style={{
+                position: "absolute",
+                inset: "-16px",
+                borderRadius: "50%",
+                background: "rgba(16,185,129,0.6)",
+                filter: "blur(28px)",
+                zIndex: 0,
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                border: "2px solid var(--color-accent)",
+                overflow: "hidden",
+                zIndex: 1,
+              }}
+            >
+              <img
+                src="/rafsan-profile.jfif"
+                alt="Rafsan Jani Dipta"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: "13px",
@@ -175,6 +214,9 @@ export function Hero() {
             View My Work →
           </HeroBtn>
           <HeroBtn href="#contact">$ contact --me</HeroBtn>
+          <HeroBtn href="/resume.html" download="Rafsan_Dipta_Resume">
+            ↓ Download CV
+          </HeroBtn>
         </motion.div>
 
         <motion.div
@@ -395,16 +437,21 @@ function HeroBtn({
   href,
   children,
   primary,
+  download,
 }: {
   href: string;
   children: React.ReactNode;
   primary?: boolean;
+  download?: string;
 }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <a
       href={href}
+      download={download}
+      target={download ? "_blank" : undefined}
+      rel={download ? "noopener noreferrer" : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
