@@ -36,16 +36,16 @@ const PROJECTS = [
   {
     id: "portfolio",
     file: "project_03.tsx",
-    name: "Dev Portfolio",
+    name: "Vain Care(A Plant Care Tracking System)",
     symbol: "▸",
-    desc: "This portfolio — a terminal-aesthetic developer site built with Next.js 15, TypeScript, and Framer Motion. Zero UI library dependencies. Every animation, layout, and component hand-crafted from scratch.",
-    tech: ["Next.js 15", "TypeScript", "Framer Motion", "CSS Variables", "Vercel"],
-    live: "https://rafsandev.vercel.app",
-    repo: "https://github.com/Rafsan41",
-    liveUrl: "rafsandev.vercel.app",
+    desc: "A comprehensive plant care tracking platform built with React and Firebase, featuring user authentication, plant profile management, and custom care reminders.",
+    tech: ["React.js", "Firebase", "Tailwind CSS"],
+    live: "https://vaincare.netlify.app/",
+    repo: "https://github.com/Rafsan41/b11a10-plant-care-tracking-Client-side",
+    liveUrl: "https://vaincare.netlify.app/",
     preview: <PortfolioPreview />,
-    challenges: "Building a fully responsive terminal-aesthetic UI without any component library — every layout, animation, and dark-theme token required custom CSS and careful Framer Motion orchestration.",
-    future: "Add a blog powered by MDX, dark/light theme toggle, and an interactive CLI command easter egg.",
+    challenges: "Designing a clean UI for a plant care tracking platform with React and Firebase required careful state management for plant profiles and care reminders. Maintaining responsiveness and a visually appealing layout without external UI libraries while ensuring smooth user interactions and data persistence was the main challenge — addressed by implementing a modular component structure and utilizing CSS variables for consistent styling.",
+    future: "Tracking Indoor plants watering and fertilizing schedule.",
   },
 ];
 
@@ -407,22 +407,21 @@ function ActionBtn({
         fontFamily: "var(--font-mono)",
         fontSize: "13px",
         padding: "10px 16px",
-        border: `1px solid ${
-          h
-            ? primary
-              ? "var(--color-fg)"
-              : "var(--color-accent)"
-            : primary
+        border: `1px solid ${h
+          ? primary
+            ? "var(--color-fg)"
+            : "var(--color-accent)"
+          : primary
             ? "var(--color-accent)"
             : "var(--color-line-2)"
-        }`,
+          }`,
         background: h
           ? primary
             ? "var(--color-fg)"
             : "var(--color-accent)"
           : primary
-          ? "var(--color-accent)"
-          : "transparent",
+            ? "var(--color-accent)"
+            : "transparent",
         color: h ? "#000" : primary ? "#000" : "var(--color-fg)",
         textDecoration: "none",
         transition: "all 0.2s",
