@@ -16,6 +16,8 @@ const PROJECTS = [
     repo: "https://github.com/Rafsan41/L2B6A5-GreenRoots-Client",
     liveUrl: "greenroots-mauve.vercel.app",
     preview: <GreenRootsPreview />,
+    challenges: "Integrating Better Auth with Google OAuth while maintaining role-based access control across admin and user flows was the trickiest part — required careful session handling and middleware guards.",
+    future: "Add product reviews, wishlist feature, email notifications for order updates, and a mobile app with React Native.",
   },
   {
     id: "medistore",
@@ -28,6 +30,22 @@ const PROJECTS = [
     repo: "https://github.com/Rafsan41/L2B6A4",
     liveUrl: "medicinestores.vercel.app",
     preview: <MediStorePreview />,
+    challenges: "Designing a clean RBAC system where Admin, Seller, and Customer have isolated views with shared routes was complex — solved with middleware-level role guards and per-role layout wrappers.",
+    future: "Integrate payment gateway (SSLCommerz), add real-time order tracking, and build a mobile companion app.",
+  },
+  {
+    id: "portfolio",
+    file: "project_03.tsx",
+    name: "Dev Portfolio",
+    symbol: "▸",
+    desc: "This portfolio — a terminal-aesthetic developer site built with Next.js 15, TypeScript, and Framer Motion. Zero UI library dependencies. Every animation, layout, and component hand-crafted from scratch.",
+    tech: ["Next.js 15", "TypeScript", "Framer Motion", "CSS Variables", "Vercel"],
+    live: "https://rafsandev.vercel.app",
+    repo: "https://github.com/Rafsan41",
+    liveUrl: "rafsandev.vercel.app",
+    preview: <PortfolioPreview />,
+    challenges: "Building a fully responsive terminal-aesthetic UI without any component library — every layout, animation, and dark-theme token required custom CSS and careful Framer Motion orchestration.",
+    future: "Add a blog powered by MDX, dark/light theme toggle, and an interactive CLI command easter egg.",
   },
 ];
 
@@ -45,7 +63,7 @@ export function Projects() {
         padding: "100px 28px",
       }}
     >
-      <SectionLabel index="03" label="featured work" />
+      <SectionLabel index="04" label="featured work" />
 
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
@@ -81,6 +99,7 @@ export function Projects() {
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
   const [hovered, setHovered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div
@@ -244,7 +263,94 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
             </ActionBtn>
           )}
           <ActionBtn href={project.repo}>$ git clone</ActionBtn>
+          {(project.challenges || project.future) && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "13px",
+                padding: "10px 16px",
+                border: "1px solid var(--color-line-2)",
+                background: "transparent",
+                color: "var(--color-fg-dim)",
+                cursor: "pointer",
+                transition: "all 0.2s",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "var(--color-accent-dim)";
+                e.currentTarget.style.color = "var(--color-accent)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--color-line-2)";
+                e.currentTarget.style.color = "var(--color-fg-dim)";
+              }}
+            >
+              {expanded ? "▲ less" : "▼ details"}
+            </button>
+          )}
         </div>
+
+        {/* Expandable details */}
+        {expanded && (project.challenges || project.future) && (
+          <div style={{
+            marginTop: "16px",
+            borderTop: "1px solid var(--color-line)",
+            paddingTop: "16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+          }}>
+            {project.challenges && (
+              <div>
+                <div style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  color: "var(--color-accent)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  marginBottom: "5px",
+                }}>
+                  // challenges_faced
+                </div>
+                <p style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "12px",
+                  color: "var(--color-fg-dim)",
+                  lineHeight: "1.65",
+                  margin: 0,
+                }}>
+                  {project.challenges}
+                </p>
+              </div>
+            )}
+            {project.future && (
+              <div>
+                <div style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  color: "var(--color-accent)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  marginBottom: "5px",
+                }}>
+                  // future_plans
+                </div>
+                <p style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "12px",
+                  color: "var(--color-fg-dim)",
+                  lineHeight: "1.65",
+                  margin: 0,
+                }}>
+                  {project.future}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <style>{`
@@ -369,4 +475,8 @@ function GreenRootsPreview() {
 
 function MediStorePreview() {
   return <SitePreview url="https://medicinestores.vercel.app" fallback="/medistiore.jpg" />;
+}
+
+function PortfolioPreview() {
+  return <SitePreview url="https://rafsandev.vercel.app" fallback="/rafsan-profile.jfif" />;
 }

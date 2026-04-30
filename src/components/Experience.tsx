@@ -53,7 +53,7 @@ export function Experience() {
         padding: "100px 28px",
       }}
     >
-      <SectionLabel index="04" label="journey" />
+      <SectionLabel index="05" label="journey" />
 
       <motion.h2
         initial={{ opacity: 0, y: 20 }}

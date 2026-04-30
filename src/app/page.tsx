@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
+import { Technologies } from "@/components/Technologies";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
 import { Experience } from "@/components/Experience";
@@ -14,6 +15,7 @@ export default function Home() {
       <main style={{ position: "relative", zIndex: 2 }}>
         <Hero />
         <About />
+        <Technologies />
         <Skills />
         <Projects />
         <Experience />

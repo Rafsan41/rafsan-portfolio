@@ -21,6 +21,49 @@
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
+/* ── Dark mode (default) ── */
+:root, [data-theme="dark"] {
+  --color-bg: #0a0a0a;
+  --color-bg-1: #0f0f0f;
+  --color-bg-2: #141414;
+  --color-line: #1f1f1f;
+  --color-line-2: #2a2a2a;
+  --color-fg: #e6e6e6;
+  --color-fg-dim: #8a8a8a;
+  --color-fg-mute: #5a5a5a;
+  --color-accent: #10b981;
+  --color-accent-dim: #047857;
+  --color-warn: #f59e0b;
+  --color-blue: #38bdf8;
+  --color-pink: #ec4899;
+  --dot-color: rgba(255,255,255,0.025);
+  --scanline-color: rgba(16,185,129,0.012);
+}
+
+/* Smooth color transitions across all elements */
+*, *::before, *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── Light mode ── */
+[data-theme="light"] {
+  --color-bg: #f5f5f0;
+  --color-bg-1: #eeede8;
+  --color-bg-2: #e5e4df;
+  --color-line: #d4d3ce;
+  --color-line-2: #c4c3be;
+  --color-fg: #1a1a1a;
+  --color-fg-dim: #4a4a4a;
+  --color-fg-mute: #8a8a8a;
+  --color-accent: #059669;
+  --color-accent-dim: #6ee7b7;
+  --color-warn: #d97706;
+  --color-blue: #0284c7;
+  --color-pink: #db2777;
+  --dot-color: rgba(0,0,0,0.06);
+  --scanline-color: rgba(0,0,0,0);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,6 +72,7 @@
 
 html {
   scroll-behavior: smooth;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 body {
@@ -37,11 +81,12 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 ::selection {
   background: var(--color-accent);
-  color: #000;
+  color: #fff;
 }
 
 /* Dotted grid background */
@@ -49,13 +94,11 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.025) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
   background-size: 24px 24px;
   pointer-events: none;
   z-index: 0;
+  transition: all 0.35s ease;
 }
 
 /* Scanline overlay */
@@ -63,7 +106,7 @@ body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(rgba(16, 185, 129, 0.012) 50%, transparent 50%);
+  background: linear-gradient(var(--scanline-color) 50%, transparent 50%);
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 1;

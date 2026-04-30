@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
 const links = [
   { href: "#about", label: "about" },
@@ -15,6 +16,12 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggle } = useTheme();
+
+  const isDark = theme === "dark";
+  const navBg = scrolled
+    ? isDark ? "rgba(8,8,8,0.85)" : "rgba(245,245,240,0.88)"
+    : isDark ? "rgba(8,8,8,0.45)" : "rgba(245,245,240,0.55)";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -33,11 +40,11 @@ export function Navbar() {
         left: 0,
         right: 0,
         zIndex: 50,
-        backdropFilter: "blur(12px)",
-        background: scrolled
-          ? "rgba(10,10,10,0.9)"
-          : "rgba(10,10,10,0.7)",
-        borderBottom: "1px solid var(--color-line)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        WebkitBackdropFilter: "blur(20px) saturate(180%)",
+        background: navBg,
+        borderBottom: `1px solid var(--color-line)`,
+        boxShadow: scrolled ? `0 8px 32px ${isDark ? "rgba(0,0,0,0.4)" : "rgba(0,0,0,0.08)"}` : "none",
         fontFamily: "var(--font-mono)",
         fontSize: "13px",
         transition: "background 0.3s",
@@ -88,22 +95,74 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setMobileOpen((v) => !v)}
-          style={{
-            display: "none",
-            background: "transparent",
-            border: "none",
-            color: "var(--color-fg-dim)",
-            cursor: "pointer",
-            padding: "4px",
-          }}
-          className="mobile-toggle"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* Theme toggle + mobile toggle */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <button
+            onClick={toggle}
+            aria-label="Toggle theme"
+            style={{
+              width: "36px",
+              height: "20px",
+              borderRadius: "10px",
+              border: "1px solid var(--color-line-2)",
+              background: theme === "dark" ? "var(--color-bg-2)" : "var(--color-accent)",
+              cursor: "pointer",
+              position: "relative",
+              transition: "background 0.3s ease",
+              flexShrink: 0,
+            }}
+          >
+            {/* Track icons */}
+            <span style={{
+              position: "absolute",
+              left: "4px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              fontSize: "9px",
+              lineHeight: 1,
+              opacity: theme === "light" ? 0 : 1,
+              transition: "opacity 0.2s",
+            }}>🌙</span>
+            <span style={{
+              position: "absolute",
+              right: "4px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              fontSize: "9px",
+              lineHeight: 1,
+              opacity: theme === "light" ? 1 : 0,
+              transition: "opacity 0.2s",
+            }}>☀️</span>
+            {/* Thumb */}
+            <span style={{
+              position: "absolute",
+              top: "2px",
+              left: theme === "dark" ? "2px" : "18px",
+              width: "14px",
+              height: "14px",
+              borderRadius: "50%",
+              background: theme === "dark" ? "var(--color-fg-mute)" : "#fff",
+              transition: "left 0.3s ease, background 0.3s ease",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }} />
+          </button>
+
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            style={{
+              display: "none",
+              background: "transparent",
+              border: "none",
+              color: "var(--color-fg-dim)",
+              cursor: "pointer",
+              padding: "4px",
+            }}
+            className="mobile-toggle"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -117,7 +176,7 @@ export function Navbar() {
             style={{
               overflow: "hidden",
               borderTop: "1px solid var(--color-line)",
-              background: "rgba(10,10,10,0.95)",
+              background: isDark ? "rgba(10,10,10,0.97)" : "rgba(245,245,240,0.97)",
             }}
           >
             <ul

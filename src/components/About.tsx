@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const stats = [
-  { label: "Projects shipped", value: "2+", sub: "in production" },
+  { label: "Projects shipped", value: "3+", sub: "in production" },
   { label: "Bootcamp grade", value: "100%", sub: "· 5/5" },
   { label: "Years coding", value: "2+" },
   { label: "Coffee / day", value: "∞" },
@@ -260,6 +260,14 @@ export function About() {
               debug, ship, and solve real problems under pressure
             </strong>
             . Now I&apos;m ready to bring that same energy to a professional team.
+          </p>
+          <p style={{ marginTop: "14px" }}>
+            Outside of coding, I enjoy{" "}
+            <span style={{ color: "var(--color-accent)" }}>watching tech talks & dev vlogs</span>
+            , playing casual games, and{" "}
+            <span style={{ color: "var(--color-accent)" }}>exploring new tools</span>{" "}
+            that make developers more productive. I also love breaking down complex topics
+            and explaining them in simple terms — it sharpens my own understanding.
           </p>
           <p
             style={{

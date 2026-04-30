@@ -59,7 +59,7 @@ export function Skills() {
         padding: "100px 28px",
       }}
     >
-      <SectionLabel index="02" label="stack" />
+      <SectionLabel index="03" label="stack" />
 
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
